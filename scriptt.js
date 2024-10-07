@@ -30,6 +30,7 @@ function checkWinner() {
         const [a, b, c] = condition;
         if (boxes[a].textContent === boxes[b].textContent && boxes[b].textContent === boxes[c].textContent && boxes[a].textContent !== '') {
             message.textContent = `${currentPlayer} wins!`;
+            highlightWinningBoxes(condition); 
             gameActive = false;
             disableBoxes();
             return;
@@ -42,6 +43,7 @@ function checkWinner() {
     }
 }
 
+
 function disableBoxes() {
     boxes.forEach(box => box.removeEventListener('click', handleBoxClick));
 }
@@ -49,6 +51,7 @@ function disableBoxes() {
 function resetGame() {
     boxes.forEach(box => {
         box.textContent = '';
+        box.style.backgroundColor = 'yellow'; 
         box.addEventListener('click', handleBoxClick);
     });
     message.textContent = '';
@@ -56,5 +59,13 @@ function resetGame() {
     gameActive = true;
 }
 
+
 boxes.forEach(box => box.addEventListener('click', handleBoxClick));
 resetBtn.addEventListener('click', resetGame);
+
+function highlightWinningBoxes(condition) {
+    condition.forEach(index => {
+        boxes[index].style.backgroundColor = 'lightgreen'; 
+    });
+}
+
